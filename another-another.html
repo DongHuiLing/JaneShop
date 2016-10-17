@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Jane Shop</title>
+	<link href="CSS/style.css" rel="stylesheet">
+	<link href="CSS/default.css" rel="stylesheet" type="text/css" />
+    <link href="CSS/skin_0.css" rel="stylesheet" type="text/css" id="cssfile" />
+    <script src="JS/js.js" type="text/javascript"></script>
+	<script src="jquery.js" type="text/javascript"></script>
+	<script type="text/javascript" >
+	$(function(){
+		// 产品属性 产品尺码表 产品介绍
+	    var $div_li =$(".tab_menu>li");
+	    $div_li.click(function(){
+			$(this).addClass("selected")
+	 	.siblings().removeClass("selected");  
+            var index = $(this).index();  
+			$(".tab_box>li")   	
+		 .eq(index).show()   
+		 .siblings().hide();
+		})
+
+	    //输入框
+		$("#input").focus(function(){
+			var text=$("#input").val();
+			if(text=="请输入商品名称")	
+				$("#input").val("");
+			})
+		$("#input").blur(function(){
+			var text=$("#input").val();
+			if(text=="")	
+				$("#input").val("请输入商品名称");
+			})
+
+	    //点击下面小图出现大图  默认情况
+		 var $div_li1 =$(".tab_menu2>ul>li");
+	    $div_li1.click(function(){
+			$(this).addClass("selected")
+	 	.siblings().removeClass("selected");  
+	 	
+            var index1 = $(this).index();  
+			$(".tab_box2>li")   	
+		 .eq(index1).show()   
+		 .siblings().hide();
+		})
+
+
+	    // 点击右边小图，出现相同的颜色  以及  点击下面小图出现大图  不同颜色出现不同的情况
+		 var $div_li =$(".tab_menu3>li");
+	    $div_li.click(function(){
+			$(this).addClass("selected")
+	 	.siblings().removeClass("selected");  
+	 		//$(".color-one").text($(""))
+	 		var text=$(this).find("img").attr("alt")
+	 		$(".color-one span").text(text)
+	 		var index = $(this).index(); 
+			$(".tab_menu2>ul")   	
+				 .eq(index).show()
+				 .siblings().hide();
+            if(index==0)
+            {
+            	$(".tab_box2>li")   	
+				 .eq(index).show()   
+				 .siblings().hide();
+				  var $div_li1 =$(".tab_menu2>ul>li");
+				    $div_li1.click(function(){
+						$(this).addClass("selected")
+				 	.siblings().removeClass("selected");  
+			            var index1 = $(this).index();  
+			  
+						$(".tab_box2>li")   	
+					 .eq(index1).show()   
+					 .siblings().hide();
+					})
+            }
+            else if(index==1)
+            {
+            	index=index+2
+            	$(".tab_box2>li")   	
+				 .eq(index).show()   
+				 .siblings().hide();
+				  var $div_li1 =$(".tab_menu2>ul>li");
+				    $div_li1.click(function(){
+						$(this).addClass("selected")
+				 	.siblings().removeClass("selected");  
+			            var index1 = $(this).index();  
+			            index1+=3
+						$(".tab_box2>li")   	
+					 .eq(index1).show()   
+					 .siblings().hide();
+					})
+            }
+             else
+            {
+            	index=index+4
+            	$(".tab_box2>li")   	
+				 .eq(index).show()   
+				 .siblings().hide();
+				  var $div_li1 =$(".tab_menu2>ul>li");
+
+				    $div_li1.click(function(){
+						$(this).addClass("selected")
+				 	.siblings().removeClass("selected");  
+			            var index1 = $(this).index(); 
+			         index1+=6
+						$(".tab_box2>li")   	
+					 .eq(index1).show()   
+					 .siblings().hide();
+					})
+            }
+		})
+
+		
+
+			// 选择尺寸
+			$(".right .size>ul").delegate("li","mouseover",function(){
+					var index=$(this).index();
+		 			var text=$(this).html();
+		 			$(".right .size>ul>li").removeClass("color");
+		 			$(this).addClass("color");
+					$(".right .replace span").html(text);
+			})
+				
+
+			// 导航条变颜色
+			var $li =$("#skin li");
+			$li.click(function(){
+				$("#"+this.id).addClass("selected")                //当前<li>元素选中
+						.siblings().removeClass("selected");  //去掉其它同辈<li>元素的选中
+				$("#cssfile").attr("href","css/"+this.id+".css"); //设置不同皮肤
+			})
+
+
+			//评分
+			$("#chose").change(function(){
+				var text=$(this).val();
+				var text1=Number(text);
+				var sum=String(text1*200)
+				$(".choose span").text(sum);
+			})
+			
+			$(".star>ul>li").click(function(){
+				var index=$(this).index()+1;
+				$(this).parent().css("background-position","0"+-0.16*index+"rem")
+			})
+
+			//提交按钮
+
+			$("#submit").click(function(){
+				var color=$(".color-one").text();
+				var sizeone=$(".replace").text();
+				var number=$("#chose").val();
+				var summary=$(".choose span").text();
+				alert("免烫高支棉条纹衬衣\n"+color+"\n"+sizeone+"\n"+"数量："+number+"\n"+"总计："+summary);
+			})	
+
+			//导航条
+			$("#num1").mouseover(function(){
+			      var $offset=$(this).offset();
+			      var left=$offset.left-17;
+			      var top=$offset.top;
+			      $(".bottom-bottom1").css({
+				        "top":+top+"px",
+				        "left":+left+"px"
+			      })
+			      $(".bottom-bottom1").show();
+			      })
+				  $(".bottom-bottom1").mouseover(function(){$(this).show()}).mouseout(function(){
+				      $(this).hide();
+				    })
+
+				  $("#num2").mouseover(function(){
+			      var $offset=$(this).offset();
+			      var left=$offset.left-17;
+			      var top=$offset.top;
+			      $(".bottom-bottom2").css({
+				        "top":+top+"px",
+				        "left":+left+"px"
+			      })
+			      $(".bottom-bottom2").show();
+			      })
+				  $(".bottom-bottom2").mouseover(function(){$(this).show()}).mouseout(function(){
+				      $(this).hide();
+				    })
+
+				  $("#num3").mouseover(function(){
+			      var $offset=$(this).offset();
+			      var left=$offset.left-17;
+			      var top=$offset.top;
+			      $(".bottom-bottom3").css({
+				        "top":+top+"px",
+				        "left":+left+"px"
+			      })
+			      $(".bottom-bottom3").show();
+			      })
+				  $(".bottom-bottom3").mouseover(function(){$(this).show()}).mouseout(function(){
+				      $(this).hide();
+				    })
+
+				  $("#num4").mouseover(function(){
+			      var $offset=$(this).offset();
+			      var left=$offset.left-7;
+			      var top=$offset.top;
+			      $(".bottom-bottom4").css({
+				        "top":+top+"px",
+				        "left":+left+"px"
+			      })
+			      $(".bottom-bottom4").show();
+			      })
+				  $(".bottom-bottom4").mouseover(function(){$(this).show()}).mouseout(function(){
+				      $(this).hide();
+				    })
+
+					
+			
+	})
+
+</script>
+</head>
+<body>
+	<div class="container another">
+		<div class="header">
+			<ul>
+				<li><img src="images/logo.gif" alt=""></li>
+				<li>
+					<form action="">
+						<input type="text" value="请输入商品名称" id="input">
+					</form>
+				</li>
+				<li>
+					 <ul id="skin">
+						<li id="skin_0" title="灰色" class="selected">灰色</li>
+						<li id="skin_1" title="紫色">紫色</li>
+						<li id="skin_2" title="红色">红色</li>
+						<li id="skin_3" title="天蓝色">天蓝色</li>
+						<li id="skin_4" title="橙色">橙色</li>
+						<li id="skin_5" title="淡绿色">淡绿色</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav">
+				<li><a href="">首页</a>
+				</li>
+				<li id="num1"><a href="">品牌</a>
+					
+				</li>
+				<li id="num2"><a href="">女装</a>
+	
+				</li>
+				<li id="num3"><a href="">男装</a>
+					
+				</li>
+				<li id="num4"><a href="">鞋包配饰</a>
+						
+				</li>
+			</ul>
+			<div class="bottom-bottom1">
+				<h3 id="bottom-bottom1-head"><a href="">品牌</a></h3>
+				<ul>
+						
+						<li><a href="">耐克</a></li>
+						<li><a href="">阿迪达斯</a></li>
+						<li><a href="">达芙妮</a></li>
+						<li><a href="">李宁</a></li>
+						<li><a href="">安踏</a></li>
+						<li><a href="">奥康</a></li>
+						<li><a href="">骆驼</a></li>
+						<li><a href="">特步</a></li>
+					
+				</ul>
+			</div>
+			<div class="bottom-bottom2">
+				<h3 id="bottom-bottom2-head"><a href="">女装</a></h3>
+				<ul>
+						<li><a href="">呢大衣</a></li>
+						<li><a href="">T恤</a></li>
+						<li><a href="">羽绒</a></li>
+						<li><a href="">衬衫</a></li>
+						<li><a href="">羊绒衫</a></li>
+						<li><a href="">针织</a></li>
+						<li><a href="">连衣裙</a></li>
+						<li><a href="">皮外套</a></li>
+					</ul>
+			</div>
+			<div class="bottom-bottom3">
+				<h3 id="bottom-bottom3-head"><a href="">男装</a></h3>
+					<ul>
+						<li><a href="">衬衫</a></li>
+						<li><a href="">T恤衫</a></li>
+						<li><a href="">夹克</a></li>
+						<li><a href="">大皮衣</a></li>
+						<li><a href="">风衣</a></li>
+						<li><a href="">牛仔裤</a></li>
+						<li><a href="">西服</a></li>
+						<li><a href="">卫衣</a></li>
+					</ul>
+			</div>
+			<div class="bottom-bottom4">
+				<h3 id="bottom-bottom4-head"><a href="">鞋包配饰</a></h3>
+					<ul>
+						<li><a href="">围巾</a></li>
+						<li><a href="">旅行箱</a></li>
+						<li><a href="">真皮包</a></li>
+						<li><a href="">韩版</a></li>
+						<li><a href="">达芙妮</a></li>
+						<li><a href="">单肩包</a></li>
+						<li><a href="">毛线</a></li>
+						<li><a href="">清仓靴子</a></li>
+					</ul>
+			</div>
+		</div>
+		<div class="body">
+			<div class="aside">
+				<h2><span><a href="">商品分类</a></span></h2>
+				<ul>
+					<li>
+						<h3><a href="">推荐品牌</a></h3>
+						<ul>
+							<li><a href="">耐克</a></li>
+							<li class="hot"><a href="">阿迪达斯</a></li>
+							<li><a href="">达芙妮</a></li>
+							<li><a href="">李宁</a></li>
+							<li><a href="">安踏</a></li>
+							<li><a href="">奥康</a></li>
+							<li class="hot"><a href="">骆驼</a></li>
+							<li><a href="">特步</a></li>
+							<img src="images/hot.gif" alt="">
+							<img src="images/hot.gif" alt="">
+						</ul>
+					</li>
+					<li>
+						<h3><a href="">女装</a></h3>
+						<ul>
+							<li><a href="">呢大衣</a></li>
+							<li><a href="">T恤</a></li>
+							<li><a href="">羽绒</a></li>
+							<li><a href="">衬衫</a></li>
+							<li><a href="">羊绒衫</a></li>
+							<li><a href="">针织</a></li>
+							<li><a href="">连衣裙</a></li>
+							<li><a href="">皮外套</a></li>
+						</ul>
+					</li>
+					<li>
+						<h3><a href="">男装</a></h3>
+						<ul>
+							<li><a href="">衬衫</a></li>
+							<li><a href="">T恤衫</a></li>
+							<li><a href="">夹克</a></li>
+							<li><a href="">大皮衣</a></li>
+							<li><a href="">风衣</a></li>
+							<li><a href="">牛仔裤</a></li>
+							<li><a href="">西服</a></li>
+							<li><a href="">卫衣</a></li>
+						</ul>
+					</li>
+					<li>
+						<h3><a href="">鞋包配饰</a></h3>
+						<ul>
+							<li><a href="">围巾</a></li>
+							<li><a href="">旅行箱</a></li>
+							<li><a href="">真皮包</a></li>
+							<li><a href="">韩版</a></li>
+							<li><a href="">达芙妮</a></li>
+							<li><a href="">单肩包</a></li>
+							<li><a href="">毛线</a></li>
+							<li><a href="">清仓靴子</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="middle">
+				<ul>
+					<li>
+						<ul class="tab_box2">
+							<li><img src="images/pro_img/blue_one_small.jpg" alt=""></li>
+							<li class="hide"><img src="images/pro_img/blue_three_small.jpg" alt=""></li>
+							<li class="hide"><img src="images/pro_img/blue_two_small.jpg" alt=""></li>
+		
+							<li class="hide"><img src="images/pro_img/yellow_one_small.jpg" alt=""></li>
+							<li class="hide"><img src="images/pro_img/yellow_two_small.jpg" alt=""></li>
+							<li class="hide"><img src="images/pro_img/yellow_three_small.jpg" alt=""></li>
+							<li class="hide"><img src="images/pro_img/green_one_small.jpg" alt=""></li>
+							<li class="hide"><img src="images/pro_img/green_two_small.jpg" alt=""></li>
+							<li class="hide"><img src="images/pro_img/green_two_small.jpg" alt=""></li>
+						</ul>
+					</li>
+					<li><img src="images/look.gif" alt=""></li>
+					<li>
+						<div class="tab_menu2">
+							<ul class="first">
+								<li class="selected"><img src="images/pro_img/blue_one1.jpg" alt=""></li>
+								<li><img src="images/pro_img/blue_two1.jpg" alt=""></li>
+								<li><img src="images/pro_img/blue_three1.jpg" alt=""></li>
+							</ul>
+							<ul class="hide second">
+								<li class="selected"><img src="images/pro_img/yellow_one1.jpg" alt=""></li>
+								<li><img src="images/pro_img/yellow_two1.jpg" alt=""></li>
+								<li><img src="images/pro_img/yellow_three1.jpg" alt=""></li>
+							</ul>
+							<ul class="hide third">
+								<li class="selected"><img src="images/pro_img/green_one1.jpg" alt=""></li>
+								<li><img src="images/pro_img/green_two1.jpg" alt=""></li>
+								<li><img src="images/pro_img/green_two1.jpg" alt=""></li>
+							</ul>
+
+						</div>
+					</li>
+					<li>
+						<ul class="tab_menu">
+							<li class="selected">产品属性</li>
+							<li>产品尺码表</li>
+							<li>产品介绍</li>
+						</ul>
+						<ul class="tab_box">
+							<li>沿用风靡百年的经典全棉牛津纺面料，通过领先的液氨整理技术，使面料的抗皱性能更上一层。延续简约、舒适、健康设计理念，特推出免烫、易打理的精细免烫牛津纺长袖衬衫系列。</li>
+							<li class="hide">来自新疆无污染的生态棉花，采用紧密纺精梳棉纱，单经双纬的织造组织，造就了颗粒饱满、朴实无华、温润细腻的经典牛津纺，易洗快干、手感丰软、吸湿性好。设计师遵循布料完美肌理，立体剪裁，曲摆的现代人性化裁减，相得益彰，浑然天成。</li>
+							<li class="hide">世界权威德国科德宝的衬和英国高士缝纫线使成衣领型自然舒展、永不变形，缝线部位平服工整、牢固耐磨；人性化的4片式后背打褶结构设计提供更舒适的活动空间；领尖扣的领型设计戴或不戴领带风格炯同、瞬间呈现；醇正天然设计，只为彰显自然荣耀。</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="right">
+				<ul>
+					<li>免烫高支棉条纹衬衣</li>
+					<li>全新精品高支棉衬衫再次提升品质，精选100%新疆长绒棉织造而成，平整度好，短绒少；80-100高支双股经纬交织，带来无与伦比的舒适享受；而且面料反光效果好，具有漂亮的光泽，质感上佳，有利于免烫效果的位置！</li>
+					<li>价格：<del>379.00</del>元</li>
+					<li>促销：<span>200.00</span>元</li>
+					<li class="color-one">颜色:<span>蓝白</span></li>
+					<li>
+						<ul class="tab_menu3">
+							<li class="selected"><img src="images/pro_img/blue1.jpg" alt="蓝色"></li>
+							<li><img src="images/pro_img/yellow1.jpg" alt="黄色"></li>
+							<li><img src="images/pro_img/green1.jpg" alt="绿色"></li>
+						</ul>
+					</li>
+					<li class="replace">尺寸：<span>未选择</span></li>
+					<li class="size">
+						<ul>
+							<li><a href="">S</a></li>
+							<li><a href="">L</a></li>
+							<li><a href="">SL</a></li>
+							<li><a href="">LL</a></li>
+						</ul>
+					</li>
+					<li>数量：</li>
+					<li>
+						<select name="" id="chose">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+					</li> 
+					<li class="choose">总计：<span>200</span>元</li>
+					<li>给商品评分：</li>
+					<li class="star">
+						<ul>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+						</ul>
+					</li>
+					<li id="submit"><a href=""><img src="images/btn_cart.png" alt=""></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="footer">
+			<p><small>Copyright &copy; 2009 - 2012 JaneShop Inc.</small></p>
+		</div>
+	</div>
+</body>
+</html>
